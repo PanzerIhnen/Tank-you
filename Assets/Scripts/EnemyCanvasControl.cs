@@ -8,7 +8,12 @@ public class EnemyCanvasControl : MonoBehaviour
     [SerializeField]
     private Image _heathFill;
 
-	public void SetHealthPercentage(float percentage)
+    private void Update()
+    {
+        transform.LookAt(Camera.main.transform);
+    }
+
+    public void SetHealthPercentage(float percentage)
     {
         _heathFill.fillAmount = percentage;
     }
