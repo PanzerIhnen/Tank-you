@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyControl : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class EnemyControl : MonoBehaviour
     private LayerMask _groundLayer;
     [SerializeField]
     Transform _towerBody;
+    [SerializeField]
+    private float _distanceToAttack;
+    
 
     [Header("Shooting")]
     [SerializeField]
@@ -23,54 +27,60 @@ public class EnemyControl : MonoBehaviour
     private GameObject _missilPrefab;
     [SerializeField]
     private float _missilForce;
+    [SerializeField]
+    private float _attackCadence;
 
-    //private Rigidbody _rb;
-    //private float _vertical;
-    //private float _horizontal;
-    private bool _fireMissil;
-    //private Vector3 _targetVelocity;
-    //private Vector3 _dampVelocity;
-    //private Vector3 _targetAngularVelocity;
-    //private Vector3 _dampAngularVelocity;
-    void Awake()
+    private NavMeshAgent _agent;
+    private Transform _targetPlayer;
+    private float _attackTimer;
+
+    void Start()
     {
-        //_rb = GetComponent<Rigidbody>();
+        _agent = GetComponent<NavMeshAgent>();
+        _targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    //void Update()
-    //{
-    //    PlayerInput();
-    //    TargetVelocity();
-    //    FireMissil();
-    //}
+    private void Update()
+    {
+        Move();
+        TurningTower();
+    }
 
-    //private void FixedUpdate()
-    //{
-    //    Move();
-    //    TurningTower();
-    //}
+    private void Move()
+    {
+        float distance = Vector3.Distance(transform.position, _targetPlayer.position);
+        
+        if (distance > _distanceToAttack)
+        {
+            _attackTimer = 0;
+            _agent.SetDestination(_targetPlayer.position);
+        }
+        else
+        {
+            FireMissil();
+        }
+    }
 
     private void FireMissil()
     {
-        if (_fireMissil)
+        if (_attackTimer <= 0)
         {
+            _attackTimer = _attackCadence;
             GameObject newMissil = Instantiate(_missilPrefab, _missilPosition.position, _missilPosition.rotation);
             newMissil.GetComponent<Rigidbody>().AddForce(newMissil.transform.forward * _missilForce, ForceMode.Impulse);
+        }
+        else
+        {
+            _attackTimer -= Time.deltaTime;
         }
     }
 
     private void TurningTower()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        Vector3 towerToPlayer = _targetPlayer.position - transform.position;
+        towerToPlayer.y = 0;
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer))
-        {
-            Vector3 towerToMouse = hit.point - transform.position;
-            towerToMouse.y = 0;
-
-            Quaternion newRotation = Quaternion.LookRotation(towerToMouse);
-            _towerBody.rotation = newRotation;
-        }
+        Quaternion newRotation = Quaternion.LookRotation(towerToPlayer);
+        _towerBody.rotation = newRotation;
     }
 }
