@@ -903,6 +903,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7280132260300434103, guid: 5ad95ff1446d9a74cb457eabf76501fc, type: 3}
+      propertyPath: _gameManager
+      value: 
+      objectReference: {fileID: 1437438989}
+    - target: {fileID: 7280132260300434103, guid: 5ad95ff1446d9a74cb457eabf76501fc, type: 3}
       propertyPath: _bulletPrefab
       value: 
       objectReference: {fileID: 1072867550037931206, guid: 30859631e39b07e49bfec96d3fffc490, type: 3}

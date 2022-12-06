@@ -22,7 +22,7 @@ public class EnemyControl : MonoBehaviour
     [SerializeField]
     private float _attackCadence;
 
-    [Header("Miscelanea")]
+    [Header("General")]
     [SerializeField]
     private GameObject _selectedMark;
 

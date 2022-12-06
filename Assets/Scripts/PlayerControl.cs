@@ -34,6 +34,10 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private float _bulletCadence;
 
+    [Header("General")]
+    [SerializeField]
+    private GameManager _gameManager;
+
     private Rigidbody _rb;
     private float _vertical;
     private float _horizontal;
@@ -121,16 +125,27 @@ public class PlayerControl : MonoBehaviour
 
     private void TurningTower()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer))
+        if (_gameManager.SelectedEnemy != null)
         {
-            Vector3 towerToMouse = hit.point - transform.position;
-            towerToMouse.y = 0;
+            Vector3 towerToEnemy = _gameManager.SelectedEnemy.transform.position - transform.position;
+            towerToEnemy.y = 0;
 
-            Quaternion newRotation = Quaternion.LookRotation(towerToMouse);
+            Quaternion newRotation = Quaternion.LookRotation(towerToEnemy);
             _towerBody.rotation = newRotation;
+        }
+        else
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, _groundLayer))
+            {
+                Vector3 towerToMouse = hit.point - transform.position;
+                towerToMouse.y = 0;
+
+                Quaternion newRotation = Quaternion.LookRotation(towerToMouse);
+                _towerBody.rotation = newRotation;
+            }
         }
     }
 }
