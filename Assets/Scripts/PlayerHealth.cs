@@ -8,6 +8,10 @@ public class PlayerHealth : MonoBehaviour, IHealth
     private int _maxHealth;
     [SerializeField]
     private MainCanvasControl _canvasControl;
+    [SerializeField]
+    private ParticleSystem _explosionSystem;
+    [SerializeField]
+    private GameObject _shape;
 
     private float _currentHealth;
 
@@ -31,6 +35,9 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     private void Death()
     {
-        Destroy(gameObject);
+        _shape.SetActive(false);
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        _explosionSystem.Play();
+        Destroy(gameObject, 1);
     }
 }
