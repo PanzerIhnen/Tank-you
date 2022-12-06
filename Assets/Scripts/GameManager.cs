@@ -9,17 +9,41 @@ public class GameManager : MonoBehaviour
     private LayerMask _enemiesLayer;
     [SerializeField]
     private MainCanvasControl _canvasControl;
+    [SerializeField]
+    private int _pointsToWin;
 
     public EnemyControl SelectedEnemy { get; set; }
 
     private Ray _ray;
     private RaycastHit _rayHit;
     private bool _rightMouseClic;
+    private int _currentPoints;
+
+    private void Start()
+    {
+        UpdatePoints();
+    }
 
     void Update()
     {
         PlayerInput();
         SelectEnemy();
+    }
+
+    public void EnemyDestroyed()
+    {
+        _currentPoints++;
+        UpdatePoints();
+
+        if (_currentPoints >= _pointsToWin)
+        {
+            Debug.Log("WIN");
+        }
+    }
+
+    private void UpdatePoints()
+    {
+        _canvasControl.SetPoints(_currentPoints, _pointsToWin);
     }
 
     private void SelectEnemy()

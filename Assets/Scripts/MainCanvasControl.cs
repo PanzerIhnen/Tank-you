@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class MainCanvasControl : MonoBehaviour
     private GameObject _enemyPanel;
     [SerializeField]
     private Image _enemyHealthFill;
+    [SerializeField]
+    TextMeshProUGUI _pointsText;
 
 
     public void SetHealthPercentage(float percentage)
@@ -38,5 +41,10 @@ public class MainCanvasControl : MonoBehaviour
     public void HideEnemy()
     {
         _enemyPanel.SetActive(false);
+    }
+
+    public void SetPoints(int points, int targetPoints)
+    {
+        _pointsText.text = $"{points} / {targetPoints}";
     }
 }

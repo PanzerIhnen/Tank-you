@@ -27,10 +27,12 @@ public class EnemyHealth : MonoBehaviour, IHealth
 
     private float _currentHealth;
     private MainCanvasControl _mainCanvasControl;
+    private GameManager _gameManager;
 
     private void Awake()
     {
         _mainCanvasControl = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<MainCanvasControl>();
+        _gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
 
     private void Start()
@@ -63,6 +65,9 @@ public class EnemyHealth : MonoBehaviour, IHealth
         {
             _mainCanvasControl.HideEnemy();
         }
+
+        _gameManager.EnemyDestroyed();
+
         Destroy(gameObject);
     }
 }
