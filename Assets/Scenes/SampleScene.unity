@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8433172719758150910, guid: 1b530856a15237148adb4c154b5f60c2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b530856a15237148adb4c154b5f60c2, type: 3}
 --- !u!1 &91896295
@@ -640,6 +644,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerTank: {fileID: 672221882429102983}
   _smooth: 2
+--- !u!4 &987350213 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5420230616561640321, guid: 5ad95ff1446d9a74cb457eabf76501fc, type: 3}
+  m_PrefabInstance: {fileID: 7280132260717797576}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1205476782
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,9 +873,25 @@ PrefabInstance:
       value: 0.16727489
       objectReference: {fileID: 0}
     - target: {fileID: 7280132260300434103, guid: 5ad95ff1446d9a74cb457eabf76501fc, type: 3}
+      propertyPath: _bulletSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7280132260300434103, guid: 5ad95ff1446d9a74cb457eabf76501fc, type: 3}
+      propertyPath: _bulletPrefab
+      value: 
+      objectReference: {fileID: 1072867550037931206, guid: 30859631e39b07e49bfec96d3fffc490, type: 3}
+    - target: {fileID: 7280132260300434103, guid: 5ad95ff1446d9a74cb457eabf76501fc, type: 3}
       propertyPath: _attackCadence
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7280132260300434103, guid: 5ad95ff1446d9a74cb457eabf76501fc, type: 3}
+      propertyPath: _bulletCadence
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7280132260300434103, guid: 5ad95ff1446d9a74cb457eabf76501fc, type: 3}
+      propertyPath: _bulletPosition
+      value: 
+      objectReference: {fileID: 987350213}
     - target: {fileID: 7808132920905595727, guid: 5ad95ff1446d9a74cb457eabf76501fc, type: 3}
       propertyPath: m_RootOrder
       value: 4

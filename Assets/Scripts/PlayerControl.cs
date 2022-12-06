@@ -25,16 +25,26 @@ public class PlayerControl : MonoBehaviour
     private float _missilForce;
     [SerializeField]
     private float _attackCadence;
+    [SerializeField]
+    private Transform _bulletPosition;
+    [SerializeField]
+    private GameObject _bulletPrefab;
+    [SerializeField]
+    private float _bulletSpeed;
+    [SerializeField]
+    private float _bulletCadence;
 
     private Rigidbody _rb;
     private float _vertical;
     private float _horizontal;
     private bool _fireMissil;
+    private bool _fireBullets;
     private Vector3 _targetVelocity;
     private Vector3 _dampVelocity;
     private Vector3 _targetAngularVelocity;
     private Vector3 _dampAngularVelocity;
     private float _attackTimer;
+    private float _bulletTimer;
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -45,6 +55,7 @@ public class PlayerControl : MonoBehaviour
         PlayerInput();
         TargetVelocity();
         FireMissil();
+        FireBullets();
     }
 
     private void FixedUpdate()
@@ -64,12 +75,31 @@ public class PlayerControl : MonoBehaviour
         _vertical = Input.GetAxis("Vertical");
         _horizontal = Input.GetAxis("Horizontal");
         _fireMissil = Input.GetKeyDown(KeyCode.Space);
+        _fireBullets = Input.GetMouseButton(0);
+
     }
 
     private void TargetVelocity()
     {
         _targetVelocity = transform.forward * _vertical * _speed;
         _targetAngularVelocity = new Vector3(_rb.angularVelocity.x, _horizontal * _rotationSpeed);
+    }
+
+    private void FireBullets()
+    {
+        if (_bulletTimer <= 0)
+        {
+            if (_fireBullets)
+            {
+                _bulletTimer = _bulletCadence;
+                GameObject newBullet = Instantiate(_bulletPrefab, _bulletPosition.position, _bulletPosition.rotation);
+                newBullet.GetComponent<BulletControl>().Speed = _bulletSpeed;
+            }
+        }
+        else
+        {
+            _bulletTimer -= Time.deltaTime;
+        }
     }
 
     private void FireMissil()
