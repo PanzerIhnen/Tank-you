@@ -6,6 +6,8 @@ public class MissilControl : MonoBehaviour
 {
     [SerializeField]
     private float _damage;
+    [SerializeField]
+    private string _targetTag;
     void Start()
     {
         Destroy(gameObject, 2);
@@ -13,9 +15,9 @@ public class MissilControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag(_targetTag))
         {
-            other.GetComponent<EnemyHealth>().Damage(_damage);
+            other.GetComponent<IHealth>().Damage(_damage);
             Destroy(gameObject);
         }
     }

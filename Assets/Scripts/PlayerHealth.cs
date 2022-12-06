@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour, IHealth
+public class PlayerHealth : MonoBehaviour, IHealth
 {
     [SerializeField]
     private int _maxHealth;
     [SerializeField]
-    private EnemyCanvasControl _canvasControl;
+    private MainCanvasControl _canvasControl;
 
     private float _currentHealth;
 

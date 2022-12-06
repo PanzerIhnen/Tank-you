@@ -48,16 +48,19 @@ public class EnemyControl : MonoBehaviour
 
     private void Move()
     {
-        float distance = Vector3.Distance(transform.position, _targetPlayer.position);
-        
-        if (distance > _distanceToAttack)
+        if (_targetPlayer != null)
         {
-            _attackTimer = 0;
-            _agent.SetDestination(_targetPlayer.position);
-        }
-        else
-        {
-            FireMissil();
+            float distance = Vector3.Distance(transform.position, _targetPlayer.position);
+
+            if (distance > _distanceToAttack)
+            {
+                _attackTimer = 0;
+                _agent.SetDestination(_targetPlayer.position);
+            }
+            else
+            {
+                FireMissil();
+            }
         }
     }
 
@@ -77,10 +80,13 @@ public class EnemyControl : MonoBehaviour
 
     private void TurningTower()
     {
-        Vector3 towerToPlayer = _targetPlayer.position - transform.position;
-        towerToPlayer.y = 0;
+        if (_targetPlayer != null)
+        {
+            Vector3 towerToPlayer = _targetPlayer.position - transform.position;
+            towerToPlayer.y = 0;
 
-        Quaternion newRotation = Quaternion.LookRotation(towerToPlayer);
-        _towerBody.rotation = newRotation;
+            Quaternion newRotation = Quaternion.LookRotation(towerToPlayer);
+            _towerBody.rotation = newRotation;
+        }
     }
 }

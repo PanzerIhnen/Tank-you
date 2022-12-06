@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 25
+  _targetTag: Enemy
 --- !u!1 &1619040927534846185
 GameObject:
   m_ObjectHideFlags: 0

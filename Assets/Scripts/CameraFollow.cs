@@ -23,7 +23,10 @@ public class CameraFollow : MonoBehaviour
 
     private void Move()
     {
-        Vector3 targetPosition = _playerTank.position - _offset;
-        transform.position = Vector3.Lerp(transform.position, targetPosition, _smooth * Time.deltaTime);
+        if (_playerTank != null)
+        {
+            Vector3 targetPosition = _playerTank.position - _offset;
+            transform.position = Vector3.Lerp(transform.position, targetPosition, _smooth * Time.deltaTime);
+        }
     }
 }
