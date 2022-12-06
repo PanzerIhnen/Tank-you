@@ -37,6 +37,8 @@ public class PlayerControl : MonoBehaviour
     [Header("General")]
     [SerializeField]
     private GameManager _gameManager;
+    [SerializeField]
+    private MainCanvasControl _canvasControl;
 
     private Rigidbody _rb;
     private float _vertical;
@@ -49,9 +51,15 @@ public class PlayerControl : MonoBehaviour
     private Vector3 _dampAngularVelocity;
     private float _attackTimer;
     private float _bulletTimer;
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        _attackTimer = _attackCadence;
     }
 
     void Update()
@@ -108,19 +116,22 @@ public class PlayerControl : MonoBehaviour
 
     private void FireMissil()
     {
-        if (_attackTimer <= 0)
+        if (_attackTimer >= _attackCadence)
         {
             if (_fireMissil)
             {
-                _attackTimer = _attackCadence;
+                _attackTimer = 0;
                 GameObject newMissil = Instantiate(_missilPrefab, _missilPosition.position, _missilPosition.rotation);
                 newMissil.GetComponent<Rigidbody>().AddForce(newMissil.transform.forward * _missilForce, ForceMode.Impulse);
             }
         }
         else
         {
-            _attackTimer -= Time.deltaTime;
+            _attackTimer += Time.deltaTime;
+            _attackTimer = Mathf.Clamp(_attackTimer, 0, _attackCadence);
         }
+
+        _canvasControl.SetRechargePercentage(_attackTimer / _attackCadence);
     }
 
     private void TurningTower()
