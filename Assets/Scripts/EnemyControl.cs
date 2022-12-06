@@ -29,21 +29,25 @@ public class EnemyControl : MonoBehaviour
     private NavMeshAgent _agent;
     private Transform _targetPlayer;
     private float _attackTimer;
+    private EnemyHealth _health;
 
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         _targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+        _health = GetComponent<EnemyHealth>();
     }
 
     public void Select()
     {
         _selectedMark.SetActive(true);
+        _health.VisibleInMainCanvas = true;
     }
 
     public void Unselect()
     {
         _selectedMark.SetActive(false);
+        _health.VisibleInMainCanvas = false;
     }
 
     private void Update()

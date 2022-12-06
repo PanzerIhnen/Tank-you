@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private LayerMask _enemiesLayer;
+    [SerializeField]
+    private MainCanvasControl _canvasControl;
 
     public EnemyControl SelectedEnemy { get; set; }
 
@@ -32,12 +35,13 @@ public class GameManager : MonoBehaviour
                 {
                     SelectedEnemy.Unselect();
                 }
-
+                _canvasControl.ShowEnemy();
                 SelectedEnemy = tempEnemy;
                 SelectedEnemy.Select();
             }
             else if (SelectedEnemy != null)
             {
+                _canvasControl.HideEnemy();
                 SelectedEnemy.Unselect();
                 SelectedEnemy = null;
             }

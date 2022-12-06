@@ -9,7 +9,29 @@ public class EnemyHealth : MonoBehaviour, IHealth
     [SerializeField]
     private EnemyCanvasControl _canvasControl;
 
+    private bool _visibleInMainCanvas;
+
+    public bool VisibleInMainCanvas
+    {
+        get { return _visibleInMainCanvas; }
+        set 
+        {
+            if (value)
+            {
+                _mainCanvasControl.SetEnemyHealthPercentage(_currentHealth / _maxHealth);
+            }
+            _visibleInMainCanvas = value; 
+        }
+    }
+
+
     private float _currentHealth;
+    private MainCanvasControl _mainCanvasControl;
+
+    private void Awake()
+    {
+        _mainCanvasControl = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<MainCanvasControl>();
+    }
 
     private void Start()
     {
@@ -21,7 +43,13 @@ public class EnemyHealth : MonoBehaviour, IHealth
     {
         _currentHealth -= damage;
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
-        _canvasControl.SetHealthPercentage(_currentHealth / _maxHealth);
+        float healthPercentage = _currentHealth / _maxHealth;
+        _canvasControl.SetHealthPercentage(healthPercentage);
+
+        if (VisibleInMainCanvas)
+        {
+            _mainCanvasControl.SetEnemyHealthPercentage(healthPercentage);
+        }
 
         if (_currentHealth == 0)
         {
@@ -31,6 +59,10 @@ public class EnemyHealth : MonoBehaviour, IHealth
 
     private void Death()
     {
+        if (VisibleInMainCanvas)
+        {
+            _mainCanvasControl.HideEnemy();
+        }
         Destroy(gameObject);
     }
 }
