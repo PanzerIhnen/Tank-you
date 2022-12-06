@@ -7,14 +7,6 @@ public class EnemyControl : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField]
-    private float _speed;
-    [SerializeField]
-    private float _smoothAcceleration;
-    [SerializeField]
-    private float _rotationSpeed;
-    [SerializeField]
-    private LayerMask _groundLayer;
-    [SerializeField]
     Transform _towerBody;
     [SerializeField]
     private float _distanceToAttack;
@@ -30,6 +22,10 @@ public class EnemyControl : MonoBehaviour
     [SerializeField]
     private float _attackCadence;
 
+    [Header("Miscelanea")]
+    [SerializeField]
+    private GameObject _selectedMark;
+
     private NavMeshAgent _agent;
     private Transform _targetPlayer;
     private float _attackTimer;
@@ -38,6 +34,16 @@ public class EnemyControl : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    public void Select()
+    {
+        _selectedMark.SetActive(true);
+    }
+
+    public void Unselect()
+    {
+        _selectedMark.SetActive(false);
     }
 
     private void Update()
