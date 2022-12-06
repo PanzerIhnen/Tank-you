@@ -23,6 +23,8 @@ public class PlayerControl : MonoBehaviour
     private GameObject _missilPrefab;
     [SerializeField]
     private float _missilForce;
+    [SerializeField]
+    private float _attackCadence;
 
     private Rigidbody _rb;
     private float _vertical;
@@ -32,6 +34,7 @@ public class PlayerControl : MonoBehaviour
     private Vector3 _dampVelocity;
     private Vector3 _targetAngularVelocity;
     private Vector3 _dampAngularVelocity;
+    private float _attackTimer;
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -71,10 +74,18 @@ public class PlayerControl : MonoBehaviour
 
     private void FireMissil()
     {
-        if (_fireMissil)
+        if (_attackTimer <= 0)
         {
-            GameObject newMissil = Instantiate(_missilPrefab, _missilPosition.position, _missilPosition.rotation);
-            newMissil.GetComponent<Rigidbody>().AddForce(newMissil.transform.forward * _missilForce, ForceMode.Impulse);
+            if (_fireMissil)
+            {
+                _attackTimer = _attackCadence;
+                GameObject newMissil = Instantiate(_missilPrefab, _missilPosition.position, _missilPosition.rotation);
+                newMissil.GetComponent<Rigidbody>().AddForce(newMissil.transform.forward * _missilForce, ForceMode.Impulse);
+            }
+        }
+        else
+        {
+            _attackTimer -= Time.deltaTime;
         }
     }
 
