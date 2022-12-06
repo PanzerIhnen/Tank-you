@@ -58,7 +58,7 @@ public class EnemyControl : MonoBehaviour
 
     private void Move()
     {
-        if (_targetPlayer != null)
+        if (_targetPlayer != null && !_health.IsDead)
         {
             float distance = Vector3.Distance(transform.position, _targetPlayer.position);
 

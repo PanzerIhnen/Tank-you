@@ -8,6 +8,12 @@ public class EnemyHealth : MonoBehaviour, IHealth
     private int _maxHealth;
     [SerializeField]
     private EnemyCanvasControl _canvasControl;
+    [SerializeField]
+    private ParticleSystem _explosion;
+    [SerializeField]
+    private GameObject _shape;
+
+    public bool IsDead { get; set; }
 
     private bool _visibleInMainCanvas;
 
@@ -43,24 +49,33 @@ public class EnemyHealth : MonoBehaviour, IHealth
 
     public void Damage(float damage)
     {
-        _currentHealth -= damage;
-        _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
-        float healthPercentage = _currentHealth / _maxHealth;
-        _canvasControl.SetHealthPercentage(healthPercentage);
-
-        if (VisibleInMainCanvas)
+        if (!IsDead)
         {
-            _mainCanvasControl.SetEnemyHealthPercentage(healthPercentage);
-        }
+            _currentHealth -= damage;
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+            float healthPercentage = _currentHealth / _maxHealth;
+            _canvasControl.SetHealthPercentage(healthPercentage);
 
-        if (_currentHealth == 0)
-        {
-            Death();
+            if (VisibleInMainCanvas)
+            {
+                _mainCanvasControl.SetEnemyHealthPercentage(healthPercentage);
+            }
+
+            if (_currentHealth == 0)
+            {
+                Death();
+            }
         }
     }
 
     private void Death()
     {
+        IsDead = true;
+
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        _shape.SetActive(false);
+        _explosion.Play();
+
         if (VisibleInMainCanvas)
         {
             _mainCanvasControl.HideEnemy();
@@ -68,6 +83,6 @@ public class EnemyHealth : MonoBehaviour, IHealth
 
         _gameManager.EnemyDestroyed();
 
-        Destroy(gameObject);
+        Destroy(gameObject, 1);
     }
 }
