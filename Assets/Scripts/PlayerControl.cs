@@ -43,6 +43,12 @@ public class PlayerControl : MonoBehaviour
     [Header("Sound")]
     [SerializeField]
     private AudioSource _motorSound;
+    [SerializeField]
+    private AudioSource _fx;
+    [SerializeField]
+    private AudioClip _fireMissilSound;
+    [SerializeField]
+    private AudioClip _fireBulletSound;
 
     private Rigidbody _rb;
     private float _vertical;
@@ -125,6 +131,7 @@ public class PlayerControl : MonoBehaviour
                 _bulletTimer = _bulletCadence;
                 GameObject newBullet = Instantiate(_bulletPrefab, _bulletPosition.position, _bulletPosition.rotation);
                 newBullet.GetComponent<BulletControl>().Speed = _bulletSpeed;
+                _fx.PlayOneShot(_fireBulletSound);
             }
         }
         else
@@ -142,6 +149,7 @@ public class PlayerControl : MonoBehaviour
                 _attackTimer = 0;
                 GameObject newMissil = Instantiate(_missilPrefab, _missilPosition.position, _missilPosition.rotation);
                 newMissil.GetComponent<Rigidbody>().AddForce(newMissil.transform.forward * _missilForce, ForceMode.Impulse);
+                _fx.PlayOneShot(_fireMissilSound);
             }
         }
         else

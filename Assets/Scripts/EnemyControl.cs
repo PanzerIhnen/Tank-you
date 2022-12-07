@@ -29,6 +29,10 @@ public class EnemyControl : MonoBehaviour
     [Header("Sound")]
     [SerializeField]
     private AudioSource _motor;
+    [SerializeField]
+    private AudioSource _fx;
+    [SerializeField]
+    private AudioClip _fireMissilSound;
 
     private NavMeshAgent _agent;
     private Transform _targetPlayer;
@@ -104,6 +108,7 @@ public class EnemyControl : MonoBehaviour
             _attackTimer = _attackCadence;
             GameObject newMissil = Instantiate(_missilPrefab, _missilPosition.position, _missilPosition.rotation);
             newMissil.GetComponent<Rigidbody>().AddForce(newMissil.transform.forward * _missilForce, ForceMode.Impulse);
+            _fx.PlayOneShot(_fireMissilSound);
         }
         else
         {
