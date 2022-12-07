@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private float _spawnTime;
 
     public EnemyControl SelectedEnemy { get; set; }
-    public bool Paused { get; set; }
+    public bool Paused { get; set; } = true;
 
     private Ray _ray;
     private RaycastHit _rayHit;
@@ -63,6 +63,12 @@ public class GameManager : MonoBehaviour
             Paused = true;
             Invoke("Win", 1.5f);
         }
+    }
+
+    public void PlayGame()
+    {
+        _canvasControl.HideControls();
+        Paused = false;
     }
 
     private void Win()

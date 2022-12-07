@@ -21,6 +21,8 @@ public class MainCanvasControl : MonoBehaviour
     private GameObject _winPanel;
     [SerializeField]
     private GameObject _gameoverPanel;
+    [SerializeField]
+    private GameObject _controllsPanel;
 
 
     public void SetHealthPercentage(float percentage)
@@ -72,5 +74,10 @@ public class MainCanvasControl : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void HideControls()
+    {
+        _controllsPanel.SetActive(false);
     }
 }
