@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerInput();
         SelectEnemy();
+        Exit();
     }
 
     private void Exit()
@@ -113,6 +114,6 @@ public class GameManager : MonoBehaviour
     private void PlayerInput()
     {
         _rightMouseClic = Input.GetMouseButtonDown(1);
-        _exit = Input.GetKeyDown(KeyCode.F);
+        _exit = Input.GetKeyDown(KeyCode.Escape);
     }
 }
