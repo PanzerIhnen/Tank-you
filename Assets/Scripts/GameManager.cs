@@ -42,8 +42,15 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        int n = Random.Range(0, _enemySpawn.Length);
-        Instantiate(_enemyPrefab, _enemySpawn[n].position, _enemySpawn[n].rotation);
+        if (!Paused)
+        {
+            int n = Random.Range(0, _enemySpawn.Length);
+            Instantiate(_enemyPrefab, _enemySpawn[n].position, _enemySpawn[n].rotation);
+        }
+        else
+        {
+            CancelInvoke("SpawnEnemy");
+        }
     }
 
     public void EnemyDestroyed()

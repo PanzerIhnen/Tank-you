@@ -3125,7 +3125,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _canvasControl: {fileID: 1205476783}
-  _pointsToWin: 10
+  _pointsToWin: 1
   _enemyPrefab: {fileID: 8433172719758150910, guid: 1b530856a15237148adb4c154b5f60c2, type: 3}
   _enemySpawn:
   - {fileID: 1757384181}

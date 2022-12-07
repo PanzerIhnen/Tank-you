@@ -41,6 +41,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
     private void Death()
     {
+        gameObject.GetComponent<PlayerControl>().GameOver();
         _shape.SetActive(false);
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         _explosionSystem.Play();

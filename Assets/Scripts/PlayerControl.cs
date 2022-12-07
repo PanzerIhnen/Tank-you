@@ -89,6 +89,11 @@ public class PlayerControl : MonoBehaviour
         TurningTower();
     }
 
+    public void GameOver()
+    {
+        _gameManager.Paused = true;
+    }
+
     private void Move()
     {
         _rb.velocity = Vector3.SmoothDamp(_rb.velocity, _targetVelocity, ref _dampVelocity, _smoothAcceleration);

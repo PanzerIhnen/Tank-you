@@ -38,11 +38,13 @@ public class EnemyControl : MonoBehaviour
     private Transform _targetPlayer;
     private float _attackTimer;
     private EnemyHealth _health;
+    private GameManager _gameManager;
 
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         _targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+        _gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         _health = GetComponent<EnemyHealth>();
     }
 
@@ -85,7 +87,7 @@ public class EnemyControl : MonoBehaviour
 
     private void Move()
     {
-        if (_targetPlayer != null && !_health.IsDead)
+        if (!_gameManager.Paused && !_health.IsDead)
         {
             float distance = Vector3.Distance(transform.position, _targetPlayer.position);
 
@@ -122,7 +124,7 @@ public class EnemyControl : MonoBehaviour
 
     private void TurningTower()
     {
-        if (_targetPlayer != null)
+        if (!_gameManager.Paused)
         {
             Vector3 towerToPlayer = _targetPlayer.position - transform.position;
             towerToPlayer.y = 0;
