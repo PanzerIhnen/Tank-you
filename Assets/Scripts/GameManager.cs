@@ -12,6 +12,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int _pointsToWin;
 
+    [Header("Enemies")]
+    [SerializeField]
+    private GameObject _enemyPrefab;
+    [SerializeField]
+    private Transform[] _enemySpawn;
+    [SerializeField]
+    private float _spawnTime;
+
     public EnemyControl SelectedEnemy { get; set; }
     public bool Paused { get; set; }
 
@@ -23,12 +31,19 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UpdatePoints();
+        InvokeRepeating("SpawnEnemy", 1, _spawnTime);
     }
 
     void Update()
     {
         PlayerInput();
         SelectEnemy();
+    }
+
+    private void SpawnEnemy()
+    {
+        int n = Random.Range(0, _enemySpawn.Length);
+        Instantiate(_enemyPrefab, _enemySpawn[n].position, _enemySpawn[n].rotation);
     }
 
     public void EnemyDestroyed()
@@ -39,8 +54,13 @@ public class GameManager : MonoBehaviour
         if (_currentPoints >= _pointsToWin)
         {
             Paused = true;
-            _canvasControl.ShowWin();
+            Invoke("Win", 1.5f);
         }
+    }
+
+    private void Win()
+    {
+        _canvasControl.ShowWin();
     }
 
     private void UpdatePoints()
