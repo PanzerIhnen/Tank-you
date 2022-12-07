@@ -45,6 +45,12 @@ public class PlayerHealth : MonoBehaviour, IHealth
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         _explosionSystem.Play();
         _fx.PlayOneShot(_explosionSound);
-        Destroy(gameObject, 1.5f);
+        Invoke("Gameover", 1.5f);
+    }
+
+    private void Gameover()
+    {
+        _canvasControl.ShowGameover();
+        Destroy(gameObject);
     }
 }

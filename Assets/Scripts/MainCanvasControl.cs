@@ -19,6 +19,8 @@ public class MainCanvasControl : MonoBehaviour
     private TextMeshProUGUI _pointsText;
     [SerializeField]
     private GameObject _winPanel;
+    [SerializeField]
+    private GameObject _gameoverPanel;
 
 
     public void SetHealthPercentage(float percentage)
@@ -54,6 +56,11 @@ public class MainCanvasControl : MonoBehaviour
     public void ShowWin()
     {
         _winPanel.SetActive(true);
+    }
+
+    public void ShowGameover()
+    {
+        _gameoverPanel.SetActive(true);
     }
 
     public void Retry()
