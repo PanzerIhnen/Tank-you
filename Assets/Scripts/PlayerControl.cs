@@ -81,12 +81,17 @@ public class PlayerControl : MonoBehaviour
             FireMissil();
             FireBullets();
         }
+
+        PlaySound();
     }
 
     private void FixedUpdate()
     {
-        Move();
-        TurningTower();
+        if (!_gameManager.Paused)
+        {
+            Move();
+            TurningTower();
+        }
     }
 
     public void GameOver()
@@ -113,8 +118,11 @@ public class PlayerControl : MonoBehaviour
     {
         _targetVelocity = transform.forward * _vertical * _speed;
         _targetAngularVelocity = new Vector3(_rb.angularVelocity.x, _horizontal * _rotationSpeed);
+    }
 
-        if (_vertical != 0 || _horizontal != 0)
+    private void PlaySound()
+    {
+        if ((_vertical != 0 || _horizontal != 0) && !_gameManager.Paused)
         {
             if (!_motorSound.isPlaying)
             {
