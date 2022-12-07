@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainCanvasControl : MonoBehaviour
@@ -15,7 +16,9 @@ public class MainCanvasControl : MonoBehaviour
     [SerializeField]
     private Image _enemyHealthFill;
     [SerializeField]
-    TextMeshProUGUI _pointsText;
+    private TextMeshProUGUI _pointsText;
+    [SerializeField]
+    private GameObject _winPanel;
 
 
     public void SetHealthPercentage(float percentage)
@@ -46,5 +49,21 @@ public class MainCanvasControl : MonoBehaviour
     public void SetPoints(int points, int targetPoints)
     {
         _pointsText.text = $"{points} / {targetPoints}";
+    }
+
+    public void ShowWin()
+    {
+        _winPanel.SetActive(true);
+    }
+
+    public void Retry()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

@@ -74,10 +74,13 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        PlayerInput();
-        TargetVelocity();
-        FireMissil();
-        FireBullets();
+        if (!_gameManager.Paused)
+        {
+            PlayerInput();
+            TargetVelocity();
+            FireMissil();
+            FireBullets();
+        }
     }
 
     private void FixedUpdate()

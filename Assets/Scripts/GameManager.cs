@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private int _pointsToWin;
 
     public EnemyControl SelectedEnemy { get; set; }
+    public bool Paused { get; set; }
 
     private Ray _ray;
     private RaycastHit _rayHit;
@@ -37,7 +38,8 @@ public class GameManager : MonoBehaviour
 
         if (_currentPoints >= _pointsToWin)
         {
-            Debug.Log("WIN");
+            Paused = true;
+            _canvasControl.ShowWin();
         }
     }
 
