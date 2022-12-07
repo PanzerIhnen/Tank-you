@@ -110,5 +110,10 @@ public class GameManager : MonoBehaviour
     private void PlayerInput()
     {
         _rightMouseClic = Input.GetMouseButtonDown(1);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 }
