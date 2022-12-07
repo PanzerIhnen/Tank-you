@@ -13,6 +13,12 @@ public class EnemyHealth : MonoBehaviour, IHealth
     [SerializeField]
     private GameObject _shape;
 
+    [Header("Sound")]
+    [SerializeField]
+    private AudioSource _fx;
+    [SerializeField]
+    private AudioClip _explosionSound;
+
     public bool IsDead { get; set; }
 
     private bool _visibleInMainCanvas;
@@ -75,6 +81,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         _shape.SetActive(false);
         _explosion.Play();
+        _fx.PlayOneShot(_explosionSound);
 
         if (VisibleInMainCanvas)
         {
@@ -83,6 +90,6 @@ public class EnemyHealth : MonoBehaviour, IHealth
 
         _gameManager.EnemyDestroyed();
 
-        Destroy(gameObject, 1);
+        Destroy(gameObject, 1.5f);
     }
 }

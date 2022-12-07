@@ -13,6 +13,12 @@ public class PlayerHealth : MonoBehaviour, IHealth
     [SerializeField]
     private GameObject _shape;
 
+    [Header("Sound")]
+    [SerializeField]
+    private AudioSource _fx;
+    [SerializeField]
+    private AudioClip _explosionSound;
+
     private float _currentHealth;
 
     private void Start()
@@ -38,6 +44,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
         _shape.SetActive(false);
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         _explosionSystem.Play();
-        Destroy(gameObject, 1);
+        _fx.PlayOneShot(_explosionSound);
+        Destroy(gameObject, 1.5f);
     }
 }

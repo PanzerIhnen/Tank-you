@@ -99,6 +99,10 @@ public class EnemyControl : MonoBehaviour
                 FireMissil();
             }
         }
+        else
+        {
+            _agent.isStopped = true;
+        }
     }
 
     private void FireMissil()

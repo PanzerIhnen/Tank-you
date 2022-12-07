@@ -1075,6 +1075,8 @@ MonoBehaviour:
   _canvasControl: {fileID: 3553869932572205053}
   _explosion: {fileID: 5560261700141321398}
   _shape: {fileID: 5937128935937914285}
+  _fx: {fileID: 3239223060495459265}
+  _explosionSound: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
 --- !u!195 &8052384923368560997
 NavMeshAgent:
   m_ObjectHideFlags: 0

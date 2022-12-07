@@ -815,6 +815,8 @@ MonoBehaviour:
   _canvasControl: {fileID: 0}
   _explosionSystem: {fileID: 1628205344694587945}
   _shape: {fileID: 4912959823228542846}
+  _fx: {fileID: 4753066180601589053}
+  _explosionSound: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
 --- !u!82 &672221882429102991
 AudioSource:
   m_ObjectHideFlags: 0
