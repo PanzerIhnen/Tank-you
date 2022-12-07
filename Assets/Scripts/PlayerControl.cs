@@ -40,6 +40,10 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private MainCanvasControl _canvasControl;
 
+    [Header("Sound")]
+    [SerializeField]
+    private AudioSource _motorSound;
+
     private Rigidbody _rb;
     private float _vertical;
     private float _horizontal;
@@ -95,6 +99,21 @@ public class PlayerControl : MonoBehaviour
     {
         _targetVelocity = transform.forward * _vertical * _speed;
         _targetAngularVelocity = new Vector3(_rb.angularVelocity.x, _horizontal * _rotationSpeed);
+
+        if (_vertical != 0 || _horizontal != 0)
+        {
+            if (!_motorSound.isPlaying)
+            {
+                _motorSound.Play();
+            }
+        }
+        else
+        {
+            if (_motorSound.isPlaying)
+            {
+                _motorSound.Stop();
+            }
+        }
     }
 
     private void FireBullets()

@@ -26,6 +26,10 @@ public class EnemyControl : MonoBehaviour
     [SerializeField]
     private GameObject _selectedMark;
 
+    [Header("Sound")]
+    [SerializeField]
+    private AudioSource _motor;
+
     private NavMeshAgent _agent;
     private Transform _targetPlayer;
     private float _attackTimer;
@@ -53,7 +57,26 @@ public class EnemyControl : MonoBehaviour
     private void Update()
     {
         Move();
+        PlaySound();
         TurningTower();
+    }
+
+    private void PlaySound()
+    {
+        if (_agent.velocity != Vector3.zero)
+        {
+            if (!_motor.isPlaying)
+            {
+                _motor.Play();
+            }
+        }
+        else
+        {
+            if (_motor.isPlaying)
+            {
+                _motor.Stop();
+            }
+        }
     }
 
     private void Move()
