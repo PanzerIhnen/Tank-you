@@ -21,12 +21,13 @@ public class GameManager : MonoBehaviour
     private float _spawnTime;
 
     public EnemyControl SelectedEnemy { get; set; }
-    public bool Paused { get; set; } = true;
+    public bool Paused { get; set; }
 
     private Ray _ray;
     private RaycastHit _rayHit;
     private bool _rightMouseClic;
     private int _currentPoints;
+    private bool _exit;
 
     private void Start()
     {
@@ -38,6 +39,14 @@ public class GameManager : MonoBehaviour
     {
         PlayerInput();
         SelectEnemy();
+    }
+
+    private void Exit()
+    {
+        if (_exit)
+        {
+            Application.Quit();
+        }
     }
 
     private void SpawnEnemy()
@@ -63,12 +72,6 @@ public class GameManager : MonoBehaviour
             Paused = true;
             Invoke("Win", 1.5f);
         }
-    }
-
-    public void PlayGame()
-    {
-        _canvasControl.HideControls();
-        Paused = false;
     }
 
     private void Win()
@@ -110,10 +113,6 @@ public class GameManager : MonoBehaviour
     private void PlayerInput()
     {
         _rightMouseClic = Input.GetMouseButtonDown(1);
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
+        _exit = Input.GetKeyDown(KeyCode.F);
     }
 }
